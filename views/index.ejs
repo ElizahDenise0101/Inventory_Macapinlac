@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventory</title>
+</head>
+<body>
+  <h1>Inventory List</h1>
+
+  <form action="/items" method="POST">
+    <input name="name" placeholder="Name" required />
+    <input name="quantity" type="number" placeholder="Quantity" required />
+    <input name="price" type="number" placeholder="Price" required />
+    <button type="submit">Add Item</button>
+  </form>
+  
+  <h2>Total Inventory Value: ₱<%= (totalValue || 0).toFixed(2) %></h2>
+
+  <ul>
+    <% items.forEach(item => { %>
+      <li>
+        <form action="/items/edit/<%= item._id %>" method="POST" style="display:inline;">
+          <input name="name" value="<%= item.name %>" required />
+          <input name="quantity" type="number" value="<%= item.quantity %>" required />
+          <input name="price" type="number" value="<%= item.price %>" required />
+          <button type="submit">Update</button>
+        </form>
+
+        <form action="/items/delete/<%= item._id %>" method="POST" style="display:inline;">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+</body>
+</html>
